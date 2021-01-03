@@ -9,6 +9,15 @@ jobs:
       - run: npm run ci
       - store_test_results:
           path: test-results.xml
+  deploy:
+    docker:
+      - image: circleci/buildpack-deps:stretch
+    steps:
+      - checkout
+      - run:
+          # example curl request from dockerhub documentation
+          name: Trigger docker remotely
+          command: curl --data build=true -X POST $DOCKER_HUB_TRIGGER
 
 version: 2.1
 
@@ -19,3 +28,6 @@ workflows:
   test:
     jobs:
       - test
+  deploy:
+    jobs:
+      - deploy
