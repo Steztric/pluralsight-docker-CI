@@ -11,7 +11,7 @@ jobs:
           path: test-results.xml
   deploy:
     docker:
-      - image: steztric/docker-ci
+      - image: circleci/buildpack-deps:stretch
     steps:
       - checkout
       - run:
